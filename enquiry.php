@@ -21,6 +21,18 @@ if(isset($_POST['submit'])){
   $dates = $_POST['daterange'];
   $enquiry = $_POST['message'];
 
+
+//    $to = urlencode($_POST['phone']);
+//    $message = urlencode("Thank You For Your Inquiry! We will get back to You Shortly!");
+//
+//
+// $ch = curl_init("https://platform.clickatell.com/messages/http/send?apiKey=qENSdk3SR1GHfuTxHDwR2A==&to=$to&content=$message");
+//
+// $resultmessage = curl_exec($ch);
+//
+// //close connection
+// curl_close($ch);
+
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
@@ -65,8 +77,20 @@ $mail = new PHPMailer(true);
         echo 'Enquiry Confirmation Has been Sent, Please Check Your Inbox';
         $query = $con->query("INSERT INTO quote (name, event, email,phone, dates, message)
           VALUES ('$name','$event','$email','$phone','$dates','$enquiry')");
+
+             $to = urlencode($_POST['phone']);
+             $message = urlencode("Thank You For Your Inquiry! We will get back to You Shortly!");
+
+
+          $ch = curl_init("https://platform.clickatell.com/messages/http/send?apiKey=qENSdk3SR1GHfuTxHDwR2A==&to=$to&content=$message");
+
+          $resultmessage = curl_exec($ch);
+
+          //close connection
+          curl_close($ch);
     }
-    header("Location:index.php");
+
+    header("Location:home.php");
 
 }
 
