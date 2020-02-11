@@ -12,7 +12,39 @@
 </head>
 <?php include('connect.php'); ?>
 <?php include("navbar.php"); ?>
+<style>
+#gridview {
+   text-align:center;
+}
 
+.filter-button
+{
+    font-size: 18px;
+    border: 1px solid #4097c9;
+    border-radius: 5px;
+    text-align: center;
+    color: #4097c9;
+    margin-bottom: 30px;
+
+}
+.filter-button:hover
+{
+    font-size: 18px;
+    border: 1px solid #4097c9;
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #4097c9;
+
+}
+.btn-default:active .filter-button:active
+{
+    background-color: #42B32F;
+    color: white;
+}
+
+
+</style>
 <script>
 $(document).ready(function(){
 
@@ -21,14 +53,19 @@ $(document).ready(function(){
 
         if(value == "all")
         {
+            //$('.filter').removeClass('hidden');
             $('.filter').show();
         }
         else
         {
+//            $('.filter[filter-item="'+value+'"]').removeClass('hidden');
+//            $(".filter").not('.filter[filter-item="'+value+'"]').addClass('hidden');
             $(".filter").not('.'+value).hide();
             $('.filter').filter('.'+value).show();
+
         }
     });
+
     if ($(".filter-button").removeClass("active")) {
 $(this).removeClass("active");
 }
@@ -37,7 +74,10 @@ $(this).addClass("active");
 });
 </script>
 
+
+
 <div align="center">
+
   <button class="btn btn-default filter-button" data-filter="all">All</button>
              <button class="btn btn-default filter-button" data-filter="wedding">Wedding</button>
              <button class="btn btn-default filter-button" data-filter="travel">Travel</button>
@@ -64,12 +104,12 @@ $(this).addClass("active");
 
 <div id="gridview">
   <?php
-             $query = $con->query("SELECT * FROM travel");
+             $query = $con->query("SELECT * FROM landing");
 
              if($query->num_rows > 0){
                  while($row = $query->fetch_assoc()){
-                   $image = $row['image'];
-                   $image_src = "travel/".$image;
+                   $image = $row['land_image'];
+                   $image_src = "images/".$image;
              ?>
            <div class="image filter travel">
               <img src="<?php echo $image_src; ?>" alt="" />
